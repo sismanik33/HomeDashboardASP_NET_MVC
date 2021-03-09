@@ -1,0 +1,82 @@
+﻿@model IEnumerable<DashboardWebUI.Models.PurchaseDiplayModel>
+
+@{
+    ViewBag.Title = "Purchase Summary";
+}
+
+<h2>Loan Draw Purchase Summary</h2>
+
+<table class="table table-bordered table-striped table-condensed">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vendor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Paid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PartyToReimburse)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseTotal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DrawNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReceiptLink)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vendor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PartyToReimburse)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DrawNumber)
+            </td>
+            <td>
+                <a class="btn-xs btn-success" href=@item.ReceiptLink target="_blank">Click Here</a>
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<p>
+    @*<button class="btn-danger">@Html.ActionLink("Delete", "RemoveStockFromList", new { symbol = item.Symbol }, new { @style = "font-weight:bolder; color:snow" })</button>*@
+    @*@Html.ActionLink("Create New", "AddLoanDrawPurchase")*@
+
+    @Html.ActionLink("Create New", "AddLoanDrawPurchase", new { @style = "font-weight:bolder; color:snow" })
+
+
+</p>

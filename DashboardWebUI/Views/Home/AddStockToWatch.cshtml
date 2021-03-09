@@ -1,0 +1,46 @@
+﻿@model DashboardWebUI.Models.StockSymbolModel
+
+@{
+    ViewBag.Title = "Add Stock";
+}
+
+<h2>Add Stock To Watchlist</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="row">
+        <div class="form-horizontal pull-left">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group" >
+                @Html.LabelFor(model => model.Symbol, htmlAttributes: new { @class = "control-label col-md-2", @style = "padding:5px" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Symbol, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Symbol, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-7 col-md-10">
+                    <input type="submit" value="Add To List" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+    <div class="row">
+        <div>
+            <button class="btn btn-default">  @Html.ActionLink("Home", "Index") </button>
+            <button class="btn btn-default">  @Html.ActionLink("Watchlist", "ViewStockWatchList") </button>
+            <button class="btn btn-default">  @Html.ActionLink("Stock Details", "ViewStockListDetails") </button>
+        </div>
+    </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<DashboardWebUI.Models.StockSymbolModel>
+
+@{
+    ViewBag.Title = "StockWatchList";
+}
+
+<h2>Stock Watch List</h2>
+
+<div class="row">
+    <div class="col-lg-4">
+        <table class="table table-striped table-bordered table-condensed" >
+            <tr>
+                <th class="col-lg-push-2">
+                    @Html.DisplayNameFor(model => model.Symbol)
+                </th>
+                <th class="col-lg-1"></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Symbol)
+                    </td>
+                    <td>
+                        <button class="btn-danger">@Html.ActionLink("Delete", "RemoveStockFromList", new { symbol = item.Symbol }, new { @style = "font-weight:bolder; color:snow" })</button>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+<button class="btn btn-default">  @Html.ActionLink("Add Stock", "AddStockToWatch") </button>
+<button class="btn btn-default">  @Html.ActionLink("Stock Details", "ViewStockListDetails") </button>
+
+
