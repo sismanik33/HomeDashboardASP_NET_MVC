@@ -21,7 +21,7 @@ namespace DashboardWebUI.Models
         [DisplayFormat(DataFormatString = "{0:C}")]
         public double TwoHundredDayAverage { get; set; }
         [Display(Name = "Market Cap")]
-        [DisplayFormat(DataFormatString = "{0:C}")]
+        [DisplayFormat(DataFormatString = "{0:C0}")]
         public ulong MarketCap { get; set; }
         [Display(Name = "Exchange")]
         public string FullExchangeName { get; set; }
