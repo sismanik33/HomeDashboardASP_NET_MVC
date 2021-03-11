@@ -16,6 +16,7 @@ namespace DashboardWebUI.Helpers
             foreach (var source in loadedPurchaseData)
             {
                 PurchaseDiplayModel dest = new PurchaseDiplayModel();
+                dest.Id = source.Id;
                 dest.PurchaseDate = source.PurchaseDate;
                 dest.Vendor = source.Vendor;
                 dest.Description = source.Description;
@@ -31,10 +32,29 @@ namespace DashboardWebUI.Helpers
             return mappedPurchase;
         }
 
+        public PurchaseDiplayModel MapDataItemToDisplayItem(LoanDrawPurchaseDataModel dataItem)
+        {
+            PurchaseDiplayModel output = new PurchaseDiplayModel()
+            {
+                Id = dataItem.Id,
+                PurchaseDate = dataItem.PurchaseDate,
+                Vendor = dataItem.Vendor,
+                Description = dataItem.Description,
+                Paid = dataItem.Paid,
+                PartyToReimburse = dataItem.PartyToReimburse,
+                PurchaseTotal = dataItem.PurchaseTotal,
+                DrawNumber = dataItem.DrawNumber,
+                ReceiptLink = dataItem.ReceiptLink
+            };
+
+            return output;
+        }
+
         public LoanDrawPurchaseDataModel MapPurchaseInputToDataModel(PurchaseDiplayModel p)
         {
             LoanDrawPurchaseDataModel mappedPurchase = new LoanDrawPurchaseDataModel()
             {
+                Id = p.Id,
                 PurchaseDate = p.PurchaseDate,
                 Vendor = p.Vendor,
                 Description = p.Description,
@@ -47,5 +67,7 @@ namespace DashboardWebUI.Helpers
 
             return mappedPurchase;
         }
+
+
     }
 }

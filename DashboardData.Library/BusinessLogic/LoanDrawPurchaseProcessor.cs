@@ -13,7 +13,7 @@ namespace DashboardData.Library.BusinessLogic
         public static void SavePurchase(LoanDrawPurchaseDataModel purchase)
         {
             var data = new LoanDrawData();
-            data.SavePurcase(purchase);
+            data.SavePurchase(purchase);
         }
 
         public static List<LoanDrawPurchaseDataModel> GetPurchases()
@@ -22,6 +22,12 @@ namespace DashboardData.Library.BusinessLogic
             List<LoanDrawPurchaseDataModel> output = data.LoadPurchases();
 
             return output;
+        }
+
+        public static void UpdatePurchase(LoanDrawPurchaseDataModel purchaseToUpdate)
+        {
+            var data = new LoanDrawData();
+            data.UpdatePurchase(purchaseToUpdate);
         }
     }
 }

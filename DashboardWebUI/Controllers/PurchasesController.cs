@@ -48,5 +48,30 @@ namespace DashboardWebUI.Controllers
 
             return View(purchasesToDisplay);
         }
+
+        public ActionResult Update(int id)
+        {
+            Mapper mapper = new Mapper();
+            List<LoanDrawPurchaseDataModel> loadedPurchaseData = LoanDrawPurchaseProcessor.GetPurchases();
+            var purchaseData = loadedPurchaseData.Find(x => x.Id == id);
+            var purchaseToUpdate = mapper.MapDataItemToDisplayItem(purchaseData);
+
+            return View(purchaseToUpdate);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Update(PurchaseDiplayModel purchase)
+        {
+            if (ModelState.IsValid)
+            {
+                Mapper mapper = new Mapper();
+                LoanDrawPurchaseDataModel purchaseToUpdate = mapper.MapPurchaseInputToDataModel(purchase);
+                LoanDrawPurchaseProcessor.UpdatePurchase(purchaseToUpdate);
+                return RedirectToAction("List");
+            }
+
+            return View();
+        }
     }
 }

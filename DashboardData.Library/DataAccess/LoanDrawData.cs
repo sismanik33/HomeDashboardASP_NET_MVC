@@ -10,11 +10,13 @@ namespace DashboardData.Library.DataAccess
 {
     public class LoanDrawData
     {
-        public void SavePurcase(LoanDrawPurchaseDataModel purchaseToInsert)
+        public void SavePurchase(LoanDrawPurchaseDataModel purchaseToInsert)
         {
             SqlDataAccess sql = new SqlDataAccess();
             sql.SaveDataStoredProc("dbo.spPurchase_Insert", purchaseToInsert, "DashboardDB");
         }
+
+
 
         public List<LoanDrawPurchaseDataModel> LoadPurchases()
         {
@@ -23,6 +25,14 @@ namespace DashboardData.Library.DataAccess
             var output = sql.LoadDataStoredProc<LoanDrawPurchaseDataModel, dynamic>("dbo.spPurchases_GetAll", new { }, "DashboardDB");
 
             return output;
+        }
+
+        internal void UpdatePurchase(LoanDrawPurchaseDataModel purchaseToUpdate)
+        {
+            SqlDataAccess sql = new SqlDataAccess();
+
+            sql.SaveDataStoredProc("dbo.spPurchase_Update", purchaseToUpdate, "DashboardDB");
+            
         }
     }
 }

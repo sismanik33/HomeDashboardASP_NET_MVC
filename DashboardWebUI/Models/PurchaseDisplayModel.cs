@@ -8,6 +8,7 @@ namespace DashboardWebUI.Models
 {
     public class PurchaseDiplayModel
     {
+        public int Id { get; set; }
         [Required]
         [Display(Name = "Date of Purchase")]
         [DataType(DataType.Date)]

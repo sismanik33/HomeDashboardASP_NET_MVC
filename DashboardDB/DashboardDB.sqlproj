@@ -69,6 +69,7 @@
     <Build Include="dbo\Tables\LoanDrawPurchases.sql" />
     <Build Include="dbo\Stored Procedures\spPurchase_Insert.sql" />
     <Build Include="dbo\Stored Procedures\spPurchases_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\spPurchase_Update.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Publish Profiles\DashboardDB.publish.xml" />
