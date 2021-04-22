@@ -4,6 +4,7 @@ using DashboardWebUI.Helpers;
 using DashboardWebUI.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -44,6 +45,9 @@ namespace DashboardWebUI.Controllers
             List<LoanDrawPurchaseDataModel> loadedPurchaseData = LoanDrawPurchaseProcessor.GetPurchases();
             List<PurchaseDiplayModel> purchasesToDisplay = mapper.MapPurchaseDataToDisplayData(loadedPurchaseData);
 
+            double purchasesTotal = loadedPurchaseData.Sum(p => p.PurchaseTotal);
+            ViewData["PurchaseTotalSum"] = purchasesTotal.ToString("C", CultureInfo.CurrentCulture);
+
             purchasesToDisplay.Sort((p1, p2) => p1.PurchaseDate.CompareTo(p2.PurchaseDate));
 
             return View(purchasesToDisplay);
@@ -72,6 +76,32 @@ namespace DashboardWebUI.Controllers
             }
 
             return View();
+        }
+
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("List");
+            }
+            Mapper mapper = new Mapper();
+            List<LoanDrawPurchaseDataModel> loadedPurchaseData = LoanDrawPurchaseProcessor.GetPurchases();
+            var purchaseData = loadedPurchaseData.Find(x => x.Id == id);
+            if (purchaseData == null)
+            {
+                return RedirectToAction("List");
+            }
+            var purchaseToDelete = mapper.MapDataItemToDisplayItem(purchaseData);
+
+            return View(purchaseToDelete);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            LoanDrawPurchaseProcessor.DeletePurchase(id);
+            return RedirectToAction("List");
         }
     }
 }

@@ -10,7 +10,7 @@ namespace DashboardWebUI.Models
     {
         public int Id { get; set; }
         [Required]
-        [Display(Name = "Date of Purchase")]
+        [Display(Name = "Date")]
         [DataType(DataType.Date)]
         public DateTime PurchaseDate { get; set; }
         [Required]

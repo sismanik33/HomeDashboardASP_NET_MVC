@@ -34,5 +34,12 @@ namespace DashboardData.Library.DataAccess
             sql.SaveDataStoredProc("dbo.spPurchase_Update", purchaseToUpdate, "DashboardDB");
             
         }
+
+        internal void deletePurchase(int id)
+        {
+            SqlDataAccess sql = new SqlDataAccess();
+
+            sql.SaveDataStoredProc("dbo.spPurchase_DeleteById", new { Id = id }, "DashboardDB");
+        }
     }
 }

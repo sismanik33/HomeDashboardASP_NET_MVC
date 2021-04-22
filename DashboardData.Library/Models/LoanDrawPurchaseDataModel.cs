@@ -17,5 +17,6 @@ namespace DashboardData.Library.Models
         public double PurchaseTotal { get; set; }
         public int DrawNumber { get; set; }
         public string ReceiptLink { get; set; }
+        public bool PartialPayment { get; set; }
     }
 }

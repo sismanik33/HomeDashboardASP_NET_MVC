@@ -60,17 +60,29 @@
                 @Html.DisplayFor(modelItem => item.DrawNumber)
             </td>
             <td>
-                <a class="btn-xs btn-success" href=@item.ReceiptLink target="_blank">Click Here</a>
+                <a class="btn-sm btn-info" href=@item.ReceiptLink target="_blank">Link</a>
             </td>
             <td>
-                @Html.ActionLink("Edit", "Update", new { id = item.Id } ) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <a class="btn-sm btn-warning" href=@Url.Action("Update", new { id = item.Id })>Edit</a>
+                @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                <a class="btn-sm btn-danger" href=@Url.Action("Delete", new { id = item.Id })>Delete</a>
             </td>
         </tr>
     }
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td style="font-weight:bold">Total:</td>
+    <td style="font-weight:bold">@ViewData["PurchaseTotalSum"]</td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
 </table>
 
 <p>
-    @Html.ActionLink("Create New", "Add", new { @style = "font-weight:bolder; color:snow" })
+    <a class="btn-lg btn-success" href=@Url.Action("Add")>Create New</a>
+    @*<button class="btn-success">@Html.ActionLink("New", "Add", new { }, new { @style = "color:snow" })</button>*@
 </p>

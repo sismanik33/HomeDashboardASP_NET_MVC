@@ -1,0 +1,182 @@
+﻿@model IEnumerable<DashboardWebUI.Models.PurchaseDiplayModel>
+
+@{ var paid = Model.Where(x => x.Paid == true);}
+@{ var unpaid = Model.Where(x => x.Paid == false);}
+
+@{
+    ViewBag.Title = "Purchase Summary";
+}
+
+<h2>Draw Purchase Summary</h2>
+
+<table class="table table-bordered table-striped table-condensed">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Vendor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Paid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PartyToReimburse)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseTotal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DrawNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PartialPayment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReceiptLink)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in paid)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Vendor)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PurchaseDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Paid)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PartyToReimburse)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PurchaseTotal)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DrawNumber)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PartialPayment)
+    </td>
+    <td>
+        <a class="btn-sm btn-info" href=@item.ReceiptLink target="_blank">
+            <i class="fas fa-file-invoice-dollar fa-lg"></i>
+        </a>
+    </td>
+    <td>
+        <a class="btn-sm btn-warning" href=@Url.Action("Update", new { id = item.Id })>
+            <i class="far fa-edit fa-lg"></i>
+        </a>
+        <a class="btn-sm btn-danger" href=@Url.Action("Delete", new { id = item.Id })>
+            <i class="far fa-trash-alt fa-lg"></i>
+        </a>
+    </td>
+</tr>
+    }
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="font-weight:bold">Paid Total:</td>
+        <td style="font-weight:bold">@paid.Sum(x => x.PurchaseTotal).ToString("C")</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    @foreach (var item in unpaid)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Vendor)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PurchaseDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Paid)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PartyToReimburse)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PurchaseTotal)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DrawNumber)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PartialPayment)
+    </td>
+    <td>
+        <a class="btn-sm btn-info" href=@item.ReceiptLink target="_blank">
+            <i class="fas fa-file-invoice-dollar fa-lg"></i>
+        </a>
+    </td>
+    <td>
+        <a class="btn-sm btn-warning" href=@Url.Action("Update", new { id = item.Id })>
+            <i class="far fa-edit fa-lg"></i>
+        </a>
+        <a class="btn-sm btn-danger" href=@Url.Action("Delete", new { id = item.Id })>
+            <i class="far fa-trash-alt fa-lg"></i>
+        </a>
+    </td>
+</tr>
+    }
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="font-weight:bold">Unpaid Total:</td>
+        <td style="font-weight:bold">@unpaid.Sum(x => x.PurchaseTotal).ToString("C")</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="font-weight:bold">Draw Total:</td>
+        <td style="font-weight:bold">@Model.Sum(x => x.PurchaseTotal).ToString("C")</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+
+</table>
+
+<p>
+    <a class="btn-lg btn-info" href=@Url.Action("Index")>Back to List</a>
+    <a class="btn-lg btn-success" href=@Url.Action("Add")>Create New</a>
+</p>

@@ -4,7 +4,7 @@ AS
 begin
 	set nocount on;
 	SELECT Id, PurchaseDate, Vendor,[Description], Paid, 
-	PartyToReimburse, PurchaseTotal, DrawNumber, ReceiptLink
+	PartyToReimburse, PurchaseTotal, DrawNumber, ReceiptLink, PartialPayment
 	from dbo.LoanDrawPurchases
 
 end

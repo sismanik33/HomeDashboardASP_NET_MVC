@@ -1,0 +1,81 @@
+﻿@model DashboardWebUI.Models.PurchaseDiplayModel
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PurchaseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PurchaseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Vendor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vendor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Paid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Paid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PartyToReimburse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PartyToReimburse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PurchaseTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PurchaseTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DrawNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DrawNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReceiptLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReceiptLink)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "List")
+        </div>
+    }
+</div>

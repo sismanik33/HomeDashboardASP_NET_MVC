@@ -8,5 +8,6 @@
     [PartyToReimburse] NVARCHAR(50) NOT NULL, 
     [PurchaseTotal] MONEY NOT NULL, 
     [DrawNumber] INT NOT NULL, 
-    [ReceiptLink] NVARCHAR(150) NULL
+    [ReceiptLink] NVARCHAR(150) NULL, 
+    [PartialPayment] BIT NULL
 )

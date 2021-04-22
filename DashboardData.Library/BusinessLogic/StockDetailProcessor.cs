@@ -20,7 +20,6 @@ namespace DashboardData.Library.BusinessLogic
             
             sb.Append(baseUri);
             sb.Append(symbolsUri);
-            //sb.Append("\"");
 
             string uri = sb.ToString();
 

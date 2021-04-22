@@ -29,5 +29,11 @@ namespace DashboardData.Library.BusinessLogic
             var data = new LoanDrawData();
             data.UpdatePurchase(purchaseToUpdate);
         }
+
+        public static void DeletePurchase(int id)
+        {
+            var data = new LoanDrawData();
+            data.deletePurchase(id);
+        }
     }
 }
