@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DashboardWebUI", "DashboardWebUI\DashboardWebUI.csproj", "{92F27261-1888-4A42-A088-D4A1C1096DC4}"
-EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DashboardDB", "DashboardDB\DashboardDB.sqlproj", "{E5CD1542-0CD2-41E2-AFAB-BC99A7347F08}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DashboardData.Library", "DashboardData.Library\DashboardData.Library.csproj", "{E09E14B4-52B8-450C-9880-0A8E8F90E0B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeDashboard", "..\HomeDashboard\HomeDashboard\HomeDashboard.csproj", "{ED2F20C7-0A36-486F-B5F8-E390FD2AFEE6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeDashboard", "HomeDashboard\HomeDashboard.csproj", "{ED2F20C7-0A36-486F-B5F8-E390FD2AFEE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{92F27261-1888-4A42-A088-D4A1C1096DC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{92F27261-1888-4A42-A088-D4A1C1096DC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{92F27261-1888-4A42-A088-D4A1C1096DC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{92F27261-1888-4A42-A088-D4A1C1096DC4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E5CD1542-0CD2-41E2-AFAB-BC99A7347F08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E5CD1542-0CD2-41E2-AFAB-BC99A7347F08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5CD1542-0CD2-41E2-AFAB-BC99A7347F08}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
