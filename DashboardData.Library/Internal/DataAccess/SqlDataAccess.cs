@@ -12,6 +12,8 @@ namespace DashboardData.Library.Internal.DataAccess
 {
     internal class SqlDataAccess
     {
+        //Code within this class is taken from YouTube tutorial by Tim Corey
+        //https://www.youtube.com/user/IAmTimCorey 
         public string GetConnectionString(string name)
         {
             return ConfigurationManager.ConnectionStrings[name].ConnectionString;
@@ -40,9 +42,5 @@ namespace DashboardData.Library.Internal.DataAccess
             }
         }
 
-        //public void SaveDataParameterQuery<T>(string sql, T parameters, string connectionStringName)
-        //{
-
-        //}
     }
 }

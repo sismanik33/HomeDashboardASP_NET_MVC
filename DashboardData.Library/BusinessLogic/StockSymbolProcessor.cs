@@ -20,22 +20,6 @@ namespace DashboardData.Library.BusinessLogic
             data.SaveStockSymbol(stockToSave);
         }
 
-        //public static bool StockExists(int id)
-        //{
-        //    StockSymbolData data = new StockSymbolData();
-        //    var output = data.LoadStockSymbols();
-
-        //    foreach (var row in output)
-        //    {
-        //        if (row.Id == id)
-        //        {
-        //            return true;
-        //        }
-        //    }
-
-        //    return false;
-        //}
-
         public static List<StockSymbolDataModel> LoadSymbols()
         {
             StockSymbolData data = new StockSymbolData();

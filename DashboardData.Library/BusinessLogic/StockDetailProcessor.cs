@@ -1,6 +1,7 @@
 ﻿using DashboardData.Library.Models.StockDetailModels;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
@@ -22,6 +23,7 @@ namespace DashboardData.Library.BusinessLogic
             sb.Append(symbolsUri);
 
             string uri = sb.ToString();
+            var apiKey = ConfigurationManager.AppSettings["x-rapidapi-key"];
 
             var request = new HttpRequestMessage
             {
@@ -29,7 +31,7 @@ namespace DashboardData.Library.BusinessLogic
                 RequestUri = new Uri(uri),
                 Headers =
                 {
-                    { "x-rapidapi-key", "cfea63c735msh4bd46d527fde8f5p1ede6fjsna7fba887a943" },
+                    { "x-rapidapi-key", apiKey },
                     { "x-rapidapi-host", "yahoo-finance-low-latency.p.rapidapi.com" },
                 },
             };
