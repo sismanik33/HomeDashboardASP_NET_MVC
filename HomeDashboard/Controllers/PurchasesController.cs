@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -14,10 +15,10 @@ namespace DashboardWebUI.Controllers
     public class PurchasesController : Controller
     {
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             Mapper mapper = new Mapper();
-            List<LoanDrawPurchaseDataModel> loadedPurchaseData = LoanDrawPurchaseProcessor.GetPurchases();
+            List<LoanDrawPurchaseDataModel> loadedPurchaseData = await LoanDrawPurchaseProcessor.GetPurchases();
             List<PurchaseDiplayModel> purchasesToDisplay = mapper.MapPurchaseDataToDisplayData(loadedPurchaseData);
 
             double purchasesTotal = loadedPurchaseData.Sum(p => p.PurchaseTotal);
@@ -35,13 +36,13 @@ namespace DashboardWebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(PurchaseDiplayModel purchase)
+        public async Task<ActionResult> Add(PurchaseDiplayModel purchase)
         {
             if (ModelState.IsValid)
             {
                 Mapper mapper = new Mapper();
                 LoanDrawPurchaseDataModel purchaseToSave = mapper.MapPurchaseInputToDataModel(purchase);
-                LoanDrawPurchaseProcessor.SavePurchase(purchaseToSave);
+                await LoanDrawPurchaseProcessor.SavePurchase(purchaseToSave);
                 return RedirectToAction("Index");
             }
 
@@ -49,7 +50,7 @@ namespace DashboardWebUI.Controllers
         }
 
         [Route("/Purchases/DrawDetails/{id:int}")]
-        public ActionResult DrawDetails(int id = 0)
+        public async Task<ActionResult> DrawDetails(int id = 0)
         {
             
             if(id == 0)
@@ -58,7 +59,7 @@ namespace DashboardWebUI.Controllers
             }
 
             Mapper mapper = new Mapper();
-            List<LoanDrawPurchaseDataModel> loadedPurchaseData = LoanDrawPurchaseProcessor.GetPurchases();
+            List<LoanDrawPurchaseDataModel> loadedPurchaseData = await LoanDrawPurchaseProcessor.GetPurchases();
             var maxDraw = loadedPurchaseData.Max(x => x.DrawNumber);
             if(id > maxDraw)
             {
@@ -72,10 +73,10 @@ namespace DashboardWebUI.Controllers
 
         }
 
-        public ActionResult Update(int id)
+        public async Task<ActionResult> Update(int id)
         {
             Mapper mapper = new Mapper();
-            List<LoanDrawPurchaseDataModel> loadedPurchaseData = LoanDrawPurchaseProcessor.GetPurchases();
+            List<LoanDrawPurchaseDataModel> loadedPurchaseData = await LoanDrawPurchaseProcessor.GetPurchases();
             var purchaseData = loadedPurchaseData.Find(x => x.Id == id);
             var purchaseToUpdate = mapper.MapDataItemToDisplayItem(purchaseData);
 
@@ -84,27 +85,27 @@ namespace DashboardWebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Update(PurchaseDiplayModel purchase)
+        public async Task<ActionResult> Update(PurchaseDiplayModel purchase)
         {
             if (ModelState.IsValid)
             {
                 Mapper mapper = new Mapper();
                 LoanDrawPurchaseDataModel purchaseToUpdate = mapper.MapPurchaseInputToDataModel(purchase);
-                LoanDrawPurchaseProcessor.UpdatePurchase(purchaseToUpdate);
+                await LoanDrawPurchaseProcessor.UpdatePurchase(purchaseToUpdate);
                 return RedirectToAction("Index");
             }
 
             return View();
         }
 
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction("Index");
             }
             Mapper mapper = new Mapper();
-            List<LoanDrawPurchaseDataModel> loadedPurchaseData = LoanDrawPurchaseProcessor.GetPurchases();
+            List<LoanDrawPurchaseDataModel> loadedPurchaseData = await LoanDrawPurchaseProcessor.GetPurchases();
             var purchaseData = loadedPurchaseData.Find(x => x.Id == id);
             if (purchaseData == null)
             {
@@ -117,9 +118,9 @@ namespace DashboardWebUI.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            LoanDrawPurchaseProcessor.DeletePurchase(id);
+            await LoanDrawPurchaseProcessor.DeletePurchase(id);
             return RedirectToAction("Index");
         }
     }

@@ -7,6 +7,9 @@ using System.Web.Mvc;
 using DashboardWebUI.Models;
 using DashboardData.Library.BusinessLogic;
 using DashboardData.Library.Models;
+using System.Threading.Tasks;
+using System.Diagnostics;
+using DashboardData.Library.Models.StockDetailModels;
 
 namespace DashboardWebUI.Controllers
 {
@@ -18,18 +21,18 @@ namespace DashboardWebUI.Controllers
             return RedirectToAction("WatchList");
         }
 
-        public ActionResult WatchList()
+        public async Task<ActionResult> WatchList()
         {
             ViewBag.Message = "Stocks in Watch List";
 
-            var data = StockSymbolProcessor.LoadSymbols();
+            var data = await StockSymbolProcessor.LoadSymbols();
             List<StockSymbolModel> stocks = new List<StockSymbolModel>();
 
             foreach (var symbol in data)
             {
                 stocks.Add(new StockSymbolModel
                 {
-                    Symbol = symbol.StockSymbol
+                    Symbol = symbol
                 });
             }
 
@@ -46,31 +49,34 @@ namespace DashboardWebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(Models.StockSymbolModel stock)
+        public async Task<ActionResult> Add(Models.StockSymbolModel stock)
         {
             if (ModelState.IsValid)
             {
-                StockSymbolProcessor.SaveStockSymbol(stock.Symbol.Trim().ToUpper());
+                await StockSymbolProcessor.SaveStockSymbol(stock.Symbol.Trim().ToUpper());
                 return RedirectToAction("WatchList");
             }
 
             return View();
         }
 
-        public ActionResult ListDetails()
+        public async Task<ActionResult> ListDetails()
         {
             ViewBag.Message = "Stock Watch List Details";
 
-            var stockSymbols = StockSymbolProcessor.LoadSymbols();
-            List<string> stockSymbolStr = new List<string>();
-
-            foreach (var stock in stockSymbols)
-            {
-                stockSymbolStr.Add(stock.StockSymbol.Trim().ToUpper());
-            }
+            var stockSymbols = await StockSymbolProcessor.LoadSymbols();
 
             //Return a list of StockModel from DashboardData.Library.Models
-            var stockDetailList = StockDetailProcessor.GetStockDetails(stockSymbolStr).Result;
+            var stockDetailList = new List<StockModel>();
+            try
+            {
+                stockDetailList = await StockDetailProcessor.GetStockDetails(stockSymbols);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            
 
             //Map returned list to StockDetailModel
             List<StockDetailModel> stockDetailResults = new List<StockDetailModel>();
@@ -97,12 +103,12 @@ namespace DashboardWebUI.Controllers
         }
 
         [HttpGet]
-        public ActionResult Delete(string symbol = "test", bool saveChangesError = false)
+        public async Task<ActionResult> Delete(string symbol = "test", bool saveChangesError = false)
         {
             ViewBag.Message = "Remove Stock From Watch List";
 
-            var stockSymbols = StockSymbolProcessor.LoadSymbols();
-            bool stockExists = stockSymbols.Exists(x => x.StockSymbol.Trim().ToUpper() == symbol.Trim().ToUpper());
+            var stockSymbols = await StockSymbolProcessor.LoadSymbols();
+            bool stockExists = stockSymbols.Exists(x => x == symbol.Trim().ToUpper());
 
             if (stockExists == false)
             {
@@ -113,10 +119,10 @@ namespace DashboardWebUI.Controllers
                 ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists see your system administrator.";
             }
 
-            var stock = stockSymbols.Find(x => x.StockSymbol.Trim().ToUpper() == symbol.Trim().ToUpper());
+            var stock = stockSymbols.Find(x => x == symbol.Trim().ToUpper());
             StockSymbolModel stockToDelete = new StockSymbolModel
             {
-                Symbol = stock.StockSymbol
+                Symbol = stock
             };
 
             return View(stockToDelete);
@@ -124,11 +130,11 @@ namespace DashboardWebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(StockSymbolModel stock)
+        public async Task<ActionResult> Delete(StockSymbolModel stock)
         {
             if (ModelState.IsValid)
             {
-                StockSymbolProcessor.RemoveStockFromList(stock.Symbol);
+                await StockSymbolProcessor.RemoveStockFromList(stock.Symbol);
                 return RedirectToAction("WatchList");
             }
 

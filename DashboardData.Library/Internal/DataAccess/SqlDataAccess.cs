@@ -19,26 +19,27 @@ namespace DashboardData.Library.Internal.DataAccess
             return ConfigurationManager.ConnectionStrings[name].ConnectionString;
         }
 
-        public List<T> LoadDataStoredProc<T, U>(string storedProcedure, U parameters, string connectionStringName)
+        public async Task<List<T>> LoadDataStoredProc<T, U>(string storedProcedure, U parameters, string connectionStringName)
         {
             string connectionString = GetConnectionString(connectionStringName);
 
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
 
-                List<T> rows = connection.Query<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure).ToList();
+                //List<T> rows = connection.QueryAsync<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure).Result.ToList();
+                var rows = await connection.QueryAsync<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
 
-                return rows;
+                return rows.ToList();
             }
         }
 
-        public void SaveDataStoredProc<T>(string storedProcedure, T parameters, string connectionStringName)
+        public async Task SaveDataStoredProc<T>(string storedProcedure, T parameters, string connectionStringName)
         {
             string connectionString = GetConnectionString(connectionStringName);
 
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
-                connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                await connection.ExecuteAsync(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
         }
 

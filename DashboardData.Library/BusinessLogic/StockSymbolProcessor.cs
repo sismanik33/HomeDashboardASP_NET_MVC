@@ -10,28 +10,41 @@ namespace DashboardData.Library.BusinessLogic
 {
     public static class StockSymbolProcessor
     {
-        public static void SaveStockSymbol(string symbol)
+        public static async Task SaveStockSymbol(string symbol)
         {
             StockSymbolData data = new StockSymbolData();
             StockSymbolDataModel stockToSave = new StockSymbolDataModel
             {
                 StockSymbol = symbol
             };
-            data.SaveStockSymbol(stockToSave);
+            await data.SaveStockSymbol(stockToSave);
         }
 
-        public static List<StockSymbolDataModel> LoadSymbols()
+        public static async Task<List<string>> LoadSymbols()
         {
             StockSymbolData data = new StockSymbolData();
-            var output = data.LoadStockSymbols();
+            var symbols = await data.LoadStockSymbols();
+            var output = TrimToUpperList(symbols);
 
             return output;
         }
 
-        public static void RemoveStockFromList(string symbol)
+        public static async Task RemoveStockFromList(string symbol)
         {
             StockSymbolData data = new StockSymbolData();
-            data.DeleteStockSymbol(symbol);
+            await data.DeleteStockSymbol(symbol);
+        }
+
+        private static List<string> TrimToUpperList(List<StockSymbolDataModel> list)
+        {
+            List<string> stockSymbolList = new List<string>();
+
+            foreach (var stock in list)
+            {
+                stockSymbolList.Add(stock.StockSymbol.Trim().ToUpper());
+            }
+
+            return stockSymbolList;
         }
     }
 }

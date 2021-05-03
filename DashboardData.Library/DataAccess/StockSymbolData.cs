@@ -10,25 +10,25 @@ namespace DashboardData.Library.DataAccess
 {
     public class StockSymbolData
     {
-        public List<StockSymbolDataModel> LoadStockSymbols()
+        public async Task<List<StockSymbolDataModel>> LoadStockSymbols()
         {
             SqlDataAccess sql = new SqlDataAccess();
 
-            var output = sql.LoadDataStoredProc<StockSymbolDataModel, dynamic>("dbo.spStockSymbol_GetAll", new { }, "DashboardDB");
+            var output = await sql.LoadDataStoredProc<StockSymbolDataModel, dynamic>("dbo.spStockSymbol_GetAll", new { }, "DashboardDB");
 
             return output;
         }
 
-        public void SaveStockSymbol(StockSymbolDataModel stockToInsert)
+        public async Task SaveStockSymbol(StockSymbolDataModel stockToInsert)
         {            
             SqlDataAccess sql = new SqlDataAccess();
-            sql.SaveDataStoredProc("dbo.spStockSymbol_Insert", stockToInsert, "DashboardDB");
+            await sql.SaveDataStoredProc("dbo.spStockSymbol_Insert", stockToInsert, "DashboardDB");
         }
 
-        public void DeleteStockSymbol(string stockToDelete)
+        public async Task DeleteStockSymbol(string stockToDelete)
         {
             SqlDataAccess sql = new SqlDataAccess();
-            sql.SaveDataStoredProc("dbo.spStockSymbol_Delete", new { StockSymbol = stockToDelete }, "DashboardDB");
+            await sql.SaveDataStoredProc("dbo.spStockSymbol_Delete", new { StockSymbol = stockToDelete }, "DashboardDB");
         }
     }
 }

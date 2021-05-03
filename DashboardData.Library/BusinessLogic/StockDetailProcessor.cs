@@ -46,11 +46,10 @@ namespace DashboardData.Library.BusinessLogic
                 }
                 else
                 {
-                    Debug.WriteLine(response.ReasonPhrase);
-                    throw new Exception(response.ReasonPhrase);
+                    throw new HttpRequestException(response.ReasonPhrase);
                 }
 
-                return stocks.Result;
+                return stocks.Result.ToList();
             }
 
         }

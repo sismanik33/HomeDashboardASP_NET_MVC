@@ -10,30 +10,30 @@ namespace DashboardData.Library.BusinessLogic
 {
     public static class LoanDrawPurchaseProcessor
     {
-        public static void SavePurchase(LoanDrawPurchaseDataModel purchase)
+        public static async Task SavePurchase(LoanDrawPurchaseDataModel purchase)
         {
             var data = new LoanDrawData();
-            data.SavePurchase(purchase);
+            await data.SavePurchase(purchase);
         }
 
-        public static List<LoanDrawPurchaseDataModel> GetPurchases()
+        public static async Task<List<LoanDrawPurchaseDataModel>> GetPurchases()
         {
             var data = new LoanDrawData();
-            List<LoanDrawPurchaseDataModel> output = data.LoadPurchases();
+            List<LoanDrawPurchaseDataModel> output = await data.LoadPurchases();
 
             return output;
         }
 
-        public static void UpdatePurchase(LoanDrawPurchaseDataModel purchaseToUpdate)
+        public static async Task UpdatePurchase(LoanDrawPurchaseDataModel purchaseToUpdate)
         {
             var data = new LoanDrawData();
-            data.UpdatePurchase(purchaseToUpdate);
+            await data.UpdatePurchase(purchaseToUpdate);
         }
 
-        public static void DeletePurchase(int id)
+        public static async Task DeletePurchase(int id)
         {
             var data = new LoanDrawData();
-            data.deletePurchase(id);
+            await data.deletePurchase(id);
         }
     }
 }
